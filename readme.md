@@ -3,7 +3,7 @@
 Juste some notes on setting up proxmox and stuff I modified to my own needs and like, and, some problems that I tweaked.
 more comments will follow
 
-## download proxmox and burn with rufus (dd option)
+## download proxmox and burn with rufus (use dd option, otherwise you will get errors)
 
 https://www.proxmox.com/en/downloads
 
