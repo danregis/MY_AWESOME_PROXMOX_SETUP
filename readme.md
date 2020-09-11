@@ -60,7 +60,7 @@ https://www.proxmox.com/en/downloads
 
     systemctl restart fail2ban
 
-## 6- set samba
+## 6- samba config
 
     nano /etc/samba/smb.conf
 
