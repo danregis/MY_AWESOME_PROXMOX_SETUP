@@ -9,7 +9,7 @@ https://www.proxmox.com/en/downloads
 
 ## 1- resize disk to suit need:
      
-     Problem I was havint is that the installation was not allowing me to use all space on disk. Which makes sense! You don't want your vm's on the same disk as your  
+     Problem I was having is proxmox not allowing me to use all space on disk. Which makes sense!  I mean, you don't want your vm's on the same disk as your  
      system, but in my case I wanted all the space to install my vm's.
      
      My solution:
