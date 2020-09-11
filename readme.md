@@ -1,18 +1,19 @@
 # My Awesome Proxmox Setup
 
 Juste some notes on setting up proxmox and stuff I modified to my own needs and like, and, some problems that I tweaked.
+more comments will follow
 
 ## download proxmox and burn with rufus (dd option)
 
 https://www.proxmox.com/en/downloads
 
-# 1- resize disk to suit need:
+## 1- resize disk to suit need:
 
      lvremove /dev/pve/data
      lvresize -l +100%FREE /dev/pve/root
      resize2fs /dev/mapper/pve-root
 
-# 2- update, upgrades, etc
+## 2- update, upgrades, etc
 
     mv /etc/apt/sources.list.d/pve-enterprise.list /etc/apt/sources.list.d/pve-enterprise.list.bak
 
@@ -29,21 +30,21 @@ https://www.proxmox.com/en/downloads
     apt-get autoclean 
     apt-get autoremove -yes
 
-# 4- install:
+## 3- install:
 
     apt-get install megacli htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
 
     fail2ban -- > get config and install, also commands to check ip problems and how to remove ip from jail
     samba -- > get config and install
     
-# 5- change ssh port to 2299
+## 4- change ssh port to 2299
 
     nano /etc/ssh/sshd_config
     PermitRootLogin = yes
     port = 2299
     systemctl restart sshd_config
     
-# 6- create jail for ssh
+## 5- create jail for ssh
 
     cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
     nano /etc/fail2ban/jail.local
@@ -57,7 +58,7 @@ https://www.proxmox.com/en/downloads
 
     systemctl restart fail2ban
 
-# 7- set samba
+## 6- set samba
 
     nano /etc/samba/smb.conf
 
@@ -76,17 +77,17 @@ https://www.proxmox.com/en/downloads
 
     systemctl restart smbd
 
-# 8- update templates
+## 7- update templates
 
      pveam update
 
-# 9- backup grub
+## 8- backup grub
 
     rsync -avh --progress /boot/grub /xxx/xxx/xxx
 
 **********************************************
 
-# Megacli Cheat
+## Megacli Cheat
 
      
 megacli -PDRbld -ShowProg -PhysDrv[32:2] -a0
@@ -151,15 +152,15 @@ source: https://cs.uwaterloo.ca/twiki/view/CF/MegaCli
 
 ***************************************
 
-# Observium Cheat
+## Observium Cheat
 
 observium setup for debian:
 
-# Listen to all interface
+## Listen to all interface
 
 agentAddress udp:161
 
-# Change "observium" to your preferred SNMP community string
+## Change "observium" to your preferred SNMP community string
 
 com2sec readonly default observium
 
@@ -169,12 +170,12 @@ view all included .1 80
 
 access MyROGroup "" any noauth exact all none none
 
-# Update your location here
+## Update your location here
 
 syslocation [40.705311,-74.2581883]
 syslocation New York, United States
 syscontact ITzGeek Admin <admin@itzgeek.local>
 
-# Distro Detection
+## Distro Detection
 
 extend .1.3.6.1.4.1.2021.7890.1 distro /usr/bin/distro
