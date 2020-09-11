@@ -96,57 +96,56 @@ https://www.proxmox.com/en/downloads
 megacli -PDRbld -ShowProg -PhysDrv[32:2] -a0
 
 
-check raid:
+**check raid:**
 
  megacli -ldinfo -lALL -aALL
 
-check disk:
+**check disk:**
 
  megacli -pdlist -aALL
 
-disk offline:
+**disk offline:**
 
 megacli -pdoffline -physdrv[252:3] -a0
 
-mark as missing:
+**mark as missing:**
 
 megacli -pdmarkmissing -physdrv[252:3] -aAll
 
 
-mark as fail and prepare removal:
+**mark as fail and prepare removal:**
 
 megacli -pdprprmv -physdrv[252:3] -a0
 
-locate it:
+**locate it:**
 
 megacli -pdlocate -start -physdrv[252:3] -a0
 
-replace disk:
+**replace disk:**
 
 megacli -PdReplaceMissing -PhysDrv[252:3] -Array0 -row0 -a0
 
-start rebuild:
+**start rebuild:**
 
  megacli -PDRbld -Start -PhysDrv[252:3] -a0
 
-check progress rebuild:
+**check progress rebuild:**
 
 megacli -PDRbld -ShowProg -PhysDrv[32:2] -a0
 
-
-check batt:
+**check batt:**
 
 megacli -AdpBbuCmd -aAll
 
-write back:
+**write back:**
 
 megali -LDSetProp WB -LALL -aALL
 
-read aahead:
+**read aahead:**
 
 megacli -LDSetProp -RA -Immediate -LALL -aALL
 
-disk drive cache:
+**disk drive cache:**
 
 megacli -LDSetProp -EnDskCache -Immediate -LAll 
 
