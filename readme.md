@@ -30,7 +30,7 @@ https://www.proxmox.com/en/downloads
     apt-get autoclean 
     apt-get autoremove -yes
 
-## 3- install:
+## 3- install some utilities:
 
     apt-get install megacli htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
 
