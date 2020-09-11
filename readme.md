@@ -1,15 +1,18 @@
 # My Awesome Proxmox Setup
 
+Juste some notes on setting up proxmox and stuff I modified to my own needs and like, and, some problems that I tweaked.
 
-download proxmox and burn with rufus (dd option)
+# download proxmox and burn with rufus (dd option)
 
-1- resize disk to suit need:
+https://www.proxmox.com/en/downloads
+
+# 1- resize disk to suit need:
 
      lvremove /dev/pve/data
      lvresize -l +100%FREE /dev/pve/root
      resize2fs /dev/mapper/pve-root
 
-2- update, upgrades, etc
+# 2- update, upgrades, etc
 
     mv /etc/apt/sources.list.d/pve-enterprise.list /etc/apt/sources.list.d/pve-enterprise.list.bak
 
@@ -26,24 +29,24 @@ download proxmox and burn with rufus (dd option)
     apt-get autoclean 
     apt-get autoremove -yes
 
-4- install:
+# 4- install:
 
     apt-get install megacli htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
 
     fail2ban -- > get config and install, also commands to check ip problems and how to remove ip from jail
     samba -- > get config and install
     
-5- change ssh port to 2299
+# 5- change ssh port to 2299
 
     nano /etc/ssh/sshd_config
     PermitRootLogin = yes
     port = 2299
     systemctl restart sshd_config
-6- create jail for ssh
+    
+# 6- create jail for ssh
 
     cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
     nano /etc/fail2ban/jail.local
-
 
     ignoreip = 127.0.0.1/8 xxx xxx xxx xxx
     bantime  = 600
@@ -54,7 +57,7 @@ download proxmox and burn with rufus (dd option)
 
     systemctl restart fail2ban
 
-7- set samba
+# 7- set samba
 
     nano /etc/samba/smb.conf
 
@@ -64,7 +67,8 @@ download proxmox and burn with rufus (dd option)
     log file = /var/log/samba/%m
     log level = 1
 
-
+    #Just an example:
+    
     [8TB]
     path = /mnt/8TB
     read only = no
@@ -72,17 +76,17 @@ download proxmox and burn with rufus (dd option)
 
     systemctl restart smbd
 
-8- update templates
+# 8- update templates
 
      pveam update
 
-9- backup grub
+# 9- backup grub
 
     rsync -avh --progress /boot/grub /xxx/xxx/xxx
 
 **********************************************
 
-Megacli Cheat
+# Megacli Cheat
 
      
 megacli -PDRbld -ShowProg -PhysDrv[32:2] -a0
@@ -147,7 +151,7 @@ source: https://cs.uwaterloo.ca/twiki/view/CF/MegaCli
 
 ***************************************
 
-Observium Cheat
+# Observium Cheat
 
 observium setup for debian:
 
