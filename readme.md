@@ -3,8 +3,8 @@
 Juste some notes on setting up proxmox and stuff I modified to my own needs and like, and, some problems that I tweaked.
 more comments will follow
 
-## download proxmox and burn with rufus (use dd option, otherwise you will get errors)
-## note: do not create a raid with the servers raid card; you need to create a raid with proxmox (hopefully you raid card will allow passthrough); otherwise if you loose a disk, you won't be able to replace it.
+### download proxmox and burn with rufus (use dd option, otherwise you will get errors)
+### note: do not create a raid with the servers raid card; you need to create a raid with proxmox (hopefully you raid card will allow passthrough); otherwise if you loose a disk, you won't be able to replace it.
 
 https://www.proxmox.com/en/downloads
 
