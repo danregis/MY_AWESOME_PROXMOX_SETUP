@@ -8,7 +8,12 @@ more comments will follow
 https://www.proxmox.com/en/downloads
 
 ## 1- resize disk to suit need:
-
+     
+     Problem I was havint is that the installation was not allowing me to use all space on disk. Which makes sense! You don't want your vm's on the same disk as your  
+     system, but in my case I wanted all the space to install my vm's.
+     
+     My solution:
+     
      lvremove /dev/pve/data
      lvresize -l +100%FREE /dev/pve/root
      resize2fs /dev/mapper/pve-root
@@ -33,9 +38,6 @@ https://www.proxmox.com/en/downloads
 ## 3- install some utilities:
 
     apt-get install megacli htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
-
-    fail2ban -- > get config and install, also commands to check ip problems and how to remove ip from jail
-    samba -- > get config and install
     
 ## 4- change ssh port to 2299
 
@@ -62,13 +64,13 @@ https://www.proxmox.com/en/downloads
 
     nano /etc/samba/smb.conf
 
+    #Just an example conf:
+    
     [global]
     workgroup = WORKGROUP
     map to guest = Bad User
     log file = /var/log/samba/%m
     log level = 1
-
-    #Just an example:
     
     [8TB]
     path = /mnt/8TB
@@ -79,7 +81,7 @@ https://www.proxmox.com/en/downloads
 
 ## 7- update templates
 
-     pveam update
+    pveam update
 
 ## 8- backup grub
 
