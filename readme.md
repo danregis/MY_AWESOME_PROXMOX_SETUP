@@ -92,10 +92,6 @@ https://www.proxmox.com/en/downloads
 
 ## Megacli Cheat
 
-     
-megacli -PDRbld -ShowProg -PhysDrv[32:2] -a0
-
-
 **check raid:**
 
  megacli -ldinfo -lALL -aALL
