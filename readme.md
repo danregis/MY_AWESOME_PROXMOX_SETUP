@@ -25,9 +25,7 @@ https://www.proxmox.com/en/downloads
     add these repo to /etc/apt/souces.list
 
     echo deb http://download.proxmox.com/debian/pve buster pve-no-subscription > /etc/apt/souces.list
-    echo deb http://mirror.rackspace.com/hwraid.le-vert.net/debian/ buster main > /etc/apt/souces.list
-
-    wget -O - https://hwraid.le-vert.net/debian/hwraid.le-vert.net.gpg.key | apt-key add -
+   
 
     apt-get update && upgrade -yes
     apt-get dist-upgrade -yes
@@ -37,7 +35,7 @@ https://www.proxmox.com/en/downloads
 
 ## 3- install some utilities:
 
-    apt-get install megacli htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
+    apt-get install htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
     
 ## 4- change ssh port to 2299
 
@@ -86,6 +84,14 @@ https://www.proxmox.com/en/downloads
 ## 8- backup grub
 
     rsync -avh --progress /boot/grub /xxx/xxx/xxx
+    
+## 9- GPU Passtrough
+
+## 10- bonding nics
+
+## 11- installing megacli
+
+    
 
 **********************************************
 
