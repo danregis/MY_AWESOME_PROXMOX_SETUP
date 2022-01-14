@@ -12,7 +12,7 @@ https://www.proxmox.com/en/downloads
      Problem I was having is proxmox not allowing me to use all space on disk. Which makes sense!  I mean, you don't want your vm's on the same disk as your  
      system, but in my case I wanted all the space to install my vm's.
      
-     My solution:
+     Solution:
      
      lvremove /dev/pve/data
      lvresize -l +100%FREE /dev/pve/root
@@ -87,11 +87,61 @@ https://www.proxmox.com/en/downloads
     
 ## 9- GPU Passtrough
 
+    nano /etc/default/grub
+
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt pcie_acs_override=downstream,multifunction nofb nomodeset video=vesafb:off,efifb:off"
+
+    update-grub
+
+    nano /etc/modules
+
+    vfio
+    vfio_iommu_type1
+    vfio_pci
+    vfio_virqfd
+
+    echo "options vfio_iommu_type1 allow_unsafe_interrupts=1" > /etc/modprobe.d/iommu_unsafe_interrupts.conf
+    echo "options kvm ignore_msrs=1" > /etc/modprobe.d/kvm.conf
+
+    echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf
+    echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
+    echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf
+
+    lspci -v
+
+    lspci -n -s 05:00 
+
+    echo "options vfio-pci ids=10de:06dd,10de:0be5 disable_vga=1"> /etc/modprobe.d/vfio.conf
+
+    update-initramfs -u
+
+
+    reboot
+
 ## 10- bonding nics
+
+    we need to create a bond0 abd add all nics that we want to include than we add the bond to the linux bridge
+
 
 ## 11- installing megacli
 
+    Install necessary tools apt-get install unzip apt-get install alien
+    Install necessary lib apt install libncurses5
+    Download wget https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/8-07-14_MegaCLI.zip
+    Unzip unzip 8-07-14_MegaCLI.zip
+    Create debian package cd Linux sudo alien MegaCli-8.07.14-1.noarch.rpm
+    Install debian package sudo dpkg -i megacli_8.07.14-2_all.deb
+    run MegaCli /opt/MegaRAID/MegaCli/MegaCli64 -h
+
+ ## 12- install hdparm
+
     
+hdparm -tT --direct /dev/sda
+
+
+
+cd /myFolderTheHardDisk/.
+dd if=/dev/zero of=testfile bs=1M count=1024 conv=fdatasync,notrunc
 
 **********************************************
 
