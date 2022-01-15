@@ -227,8 +227,6 @@ source: https://cs.uwaterloo.ca/twiki/view/CF/MegaCli
 
 ## Observium Cheat
 
-observium setup for debian:
-
 ## Listen to all interface
 
 agentAddress udp:161
