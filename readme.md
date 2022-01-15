@@ -106,21 +106,38 @@ https://www.proxmox.com/en/downloads
     echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf
     echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
     echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf
+    echo "blacklist nvidiafb" >> /etc/modprobe.d/blacklist.conf
 
     lspci -v
 
-    lspci -n -s 05:00 
+    Look for your GPU and take note of the first set of numbers this is your PCI card address.
+
+    Then run this command
+
+    lspci -n -s (PCI card address)
+
+    in my case:
+
+    lspci -n -s 05:00
+
+    This command gives use the GPU vendors number
+
+    Use those numbers in this command (in my case:)
 
     echo "options vfio-pci ids=10de:06dd,10de:0be5 disable_vga=1"> /etc/modprobe.d/vfio.conf
 
     update-initramfs -u
 
-
     reboot
+
+    Create Vm with:
+
+    Bios is OMVF(UEFI)
+    Machine is q35
 
 ## 10- bonding nics
 
-    we need to create a bond0 abd add all nics that we want to include than we add the bond to the linux bridge
+    we need to create a bond0 and add all nics that we want to include than we add the bond to the linux bridge
 
 
 ## 11- installing megacli
@@ -134,7 +151,7 @@ https://www.proxmox.com/en/downloads
     sudo dpkg -i megacli_8.07.14-2_all.deb
     /opt/MegaRAID/MegaCli/MegaCli64 -h
 
- ## 12- install hdparm
+ ## 12- test I/O speed with hdparm
 
     
 hdparm -tT --direct /dev/sda
@@ -144,7 +161,7 @@ hdparm -tT --direct /dev/sda
 cd /myFolderTheHardDisk/.
 dd if=/dev/zero of=testfile bs=1M count=1024 conv=fdatasync,notrunc
 
-**********************************************
+## Random note and cheats
 
 ## Megacli Cheat
 
@@ -202,9 +219,6 @@ megacli -LDSetProp -RA -Immediate -LALL -aALL
 megacli -LDSetProp -EnDskCache -Immediate -LAll 
 
 source: https://cs.uwaterloo.ca/twiki/view/CF/MegaCli
-
-
-***************************************
 
 ## Observium Cheat
 
