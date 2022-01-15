@@ -139,7 +139,7 @@ https://www.proxmox.com/en/downloads
 
     we need to create a bond0 and add all nics that we want to include than we add the bond to the linux bridge
 
-    ![Alt text] (https://github.com/danregis/MY_AWESOME_PROXMOX_SETUP/blob/master/bond.png)
+   ![bond](https://user-images.githubusercontent.com/3466110/149634851-4a673e3d-e8df-4940-9cf4-bc5090c3f219.png)
 
 ## 11- installing megacli
 
