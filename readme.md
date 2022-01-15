@@ -125,12 +125,14 @@ https://www.proxmox.com/en/downloads
 
 ## 11- installing megacli
 
+    cd /opt
     apt install unzip alien libncurses5 wget
-    Download wget https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/8-07-14_MegaCLI.zip
+    wget https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/8-07-14_MegaCLI.zip
     unzip 8-07-14_MegaCLI.zip
-    cd Linux sudo alien MegaCli-8.07.14-1.noarch.rpm
+    cd Linux 
+    sudo alien MegaCli-8.07.14-1.noarch.rpm
     sudo dpkg -i megacli_8.07.14-2_all.deb
-    run MegaCli /opt/MegaRAID/MegaCli/MegaCli64 -h
+    /opt/MegaRAID/MegaCli/MegaCli64 -h
 
  ## 12- install hdparm
 
