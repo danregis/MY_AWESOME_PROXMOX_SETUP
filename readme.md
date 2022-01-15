@@ -139,7 +139,7 @@ https://www.proxmox.com/en/downloads
 
     we need to create a bond0 and add all nics that we want to include than we add the bond to the linux bridge
 
-    ![Alt Image text](https://github.com/danregis/MY_AWESOME_PROXMOX_SETUP/blob/c46024fc8a342365b09fb2d6ecc4074039e97fe8/bond.png)
+    ![Alt Image text](/bond.png)
     
     https://github.com/danregis/MY_AWESOME_PROXMOX_SETUP/blob/master/bond.png?raw=true
 
