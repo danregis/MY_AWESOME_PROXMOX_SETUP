@@ -162,7 +162,11 @@ hdparm -tT --direct /dev/sda
 cd /myFolderTheHardDisk/.
 dd if=/dev/zero of=testfile bs=1M count=1024 conv=fdatasync,notrunc
 
+
+
 # Random note and cheats
+
+
 
 ## Megacli Cheat
 
