@@ -252,3 +252,29 @@ syscontact ITzGeek Admin <admin@itzgeek.local>
 ## Distro Detection
 
 extend .1.3.6.1.4.1.2021.7890.1 distro /usr/bin/distro
+
+# Useful VM
+
+## PiHole
+
+curl -sSL https://install.pi-hole.net | bash
+
+## Ansible
+
+apt install ansible
+
+## Docker
+
+curl -s https://gist.githubusercontent.com/mtnezm/502cdb812caa25a32ddd994f6fbff0df/raw/e7ec8f706fc88623f0fb097b4d9704c4e0b4bd9a/install_docker_debian.bash | sudo bash
+
+## Portainer (docker manager)
+
+docker volume create portainer_data
+
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+
+## nodered
+
+sudo apt install build-essential
+
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
