@@ -162,9 +162,9 @@ hdparm -tT --direct /dev/sda
 cd /myFolderTheHardDisk/.
 dd if=/dev/zero of=testfile bs=1M count=1024 conv=fdatasync,notrunc
 
-## Random note and cheats
+# Random note and cheats
 
-# Megacli Cheat
+## Megacli Cheat
 
 **check raid:**
 
@@ -221,15 +221,15 @@ megacli -LDSetProp -EnDskCache -Immediate -LAll
 
 source: https://cs.uwaterloo.ca/twiki/view/CF/MegaCli
 
-# Observium Cheat
+## Observium Cheat
 
 observium setup for debian:
 
-# Listen to all interface
+## Listen to all interface
 
 agentAddress udp:161
 
-# Change "observium" to your preferred SNMP community string
+## Change "observium" to your preferred SNMP community string
 
 com2sec readonly default observium
 
@@ -239,12 +239,12 @@ view all included .1 80
 
 access MyROGroup "" any noauth exact all none none
 
-# Update your location here
+## Update your location here
 
 syslocation [40.705311,-74.2581883]
 syslocation New York, United States
 syscontact ITzGeek Admin <admin@itzgeek.local>
 
-# Distro Detection
+## Distro Detection
 
 extend .1.3.6.1.4.1.2021.7890.1 distro /usr/bin/distro
