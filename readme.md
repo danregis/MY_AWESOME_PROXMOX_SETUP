@@ -35,7 +35,7 @@ https://www.proxmox.com/en/downloads
 
 ## 3- install some utilities:
 
-    apt-get install htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2
+    apt-get install htop tmux fail2ban samba speedtest-cli net-tools ntfs-3g ifupdown2 hdparm
     
 ## 4- change ssh port to 2299
 
@@ -125,12 +125,11 @@ https://www.proxmox.com/en/downloads
 
 ## 11- installing megacli
 
-    Install necessary tools apt-get install unzip apt-get install alien
-    Install necessary lib apt install libncurses5
+    apt install unzip alien libncurses5 wget
     Download wget https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/8-07-14_MegaCLI.zip
-    Unzip unzip 8-07-14_MegaCLI.zip
-    Create debian package cd Linux sudo alien MegaCli-8.07.14-1.noarch.rpm
-    Install debian package sudo dpkg -i megacli_8.07.14-2_all.deb
+    unzip 8-07-14_MegaCLI.zip
+    cd Linux sudo alien MegaCli-8.07.14-1.noarch.rpm
+    sudo dpkg -i megacli_8.07.14-2_all.deb
     run MegaCli /opt/MegaRAID/MegaCli/MegaCli64 -h
 
  ## 12- install hdparm
