@@ -227,6 +227,10 @@ source: https://cs.uwaterloo.ca/twiki/view/CF/MegaCli
 
 ## Observium Cheat
 
+wget http://www.observium.org/observium_installscript.sh
+chmod +x observium_installscript.sh
+./observium_installscript.sh
+
 ## Listen to all interface
 
 agentAddress udp:161
