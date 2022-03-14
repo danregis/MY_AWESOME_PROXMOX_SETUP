@@ -24,7 +24,7 @@ https://www.proxmox.com/en/downloads
 
     add these repo to /etc/apt/souces.list
 
-    echo deb http://download.proxmox.com/debian/pve buster pve-no-subscription > /etc/apt/souces.list
+    echo deb http://download.proxmox.com/debian/pve buster pve-no-subscription > /etc/apt/sources.list
    
 
     apt-get update && upgrade -yes
