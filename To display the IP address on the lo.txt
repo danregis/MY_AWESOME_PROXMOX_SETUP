@@ -1,0 +1,46 @@
+To display the IP address on the login screen using /etc/issue on Debian 11, you can modify the contents of the file and use a script to dynamically insert the IP address.
+
+Here are the steps to modify /etc/issue and create the script:
+
+Create a backup copy of the /etc/issue file before modifying it:
+sh
+Copy code
+sudo cp /etc/issue /etc/issue.bak
+Edit the /etc/issue file with a text editor:
+sh
+Copy code
+sudo nano /etc/issue
+Add the following line to the file:
+sh
+Copy code
+IP Address: \4
+This line specifies that the IP address should be inserted using the \4 escape sequence.
+
+Save the changes and exit the text editor.
+
+Create a script that retrieves the IP address and inserts it into /etc/issue. Create a file called /usr/local/bin/insert-ip.sh with the following contents:
+
+sh
+Copy code
+#!/bin/bash
+
+ip=$(ip addr show | grep -w inet | awk '{print $2}' | awk -F/ '{print $1}')
+sed -i "s/\\\4/$ip/" /etc/issue
+This script retrieves the IP address and replaces the \4 escape sequence in /etc/issue with the actual IP address.
+
+Make the script executable:
+sh
+Copy code
+sudo chmod +x /usr/local/bin/insert-ip.sh
+Edit the /etc/rc.local file to execute the script at boot:
+sh
+Copy code
+sudo nano /etc/rc.local
+Add the following line before the exit 0 line:
+sh
+Copy code
+/usr/local/bin/insert-ip.sh
+This line specifies that the insert-ip.sh script should be executed at boot.
+
+Save the changes and exit the text editor.
+That's it! The next time the workstation boots, the IP address should be displayed on the login screen. Note that this method modifies the /etc/issue file, which is used by many other system utilities, so be careful when modifying its contents. Also, note that modifying /etc/rc.local is not the recommended method to execute scripts at boot time. For a more modern approach, you can create a systemd service as described in my previous answer.
