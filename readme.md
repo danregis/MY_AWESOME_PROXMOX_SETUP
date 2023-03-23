@@ -39,24 +39,26 @@ https://www.proxmox.com/en/downloads
     
 ## 4- change ssh port to 2299
 
-    nano /etc/ssh/sshd_config
-    PermitRootLogin = yes
-    port = 2299
-    systemctl restart sshd_config
+    sed -i 's/#Port 22/Port 2299/' /etc/ssh/sshd_config
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+    systemctl restart ssh
+
     
 ## 5- create jail for ssh
 
-    cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
-    nano /etc/fail2ban/jail.local
+     cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
+     cat << EOF > /etc/fail2ban/jail.local
+     [DEFAULT]
+     ignoreip = 127.0.0.1/8
+     bantime  = 600
+     findtime = 600
+     maxretry = 3
 
-    ignoreip = 127.0.0.1/8 xxx xxx xxx xxx
-    bantime  = 600
-    findtime = 600
-    maxretry = 3
-
-    ssh port = 2299
-
-    systemctl restart fail2ban
+     [sshd]
+     enabled = true
+     port = 2299
+     EOF
+     systemctl restart fail2ban
 
 ## 6- samba config
 
