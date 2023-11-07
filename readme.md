@@ -282,3 +282,8 @@ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /va
 sudo apt install build-essential
 
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+
+
+remove nag screen proxmox 8: 
+
+sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
