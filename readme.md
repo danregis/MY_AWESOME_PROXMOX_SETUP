@@ -1,9 +1,9 @@
 # My Awesome Proxmox Setup
 
-Juste some notes on setting up proxmox and stuff I modified to my own needs and like, also, some problems that I tweaked.
+Just some notes on setting up proxmox and stuff I modified to my own needs and like, also, some problems that I tweaked.
 
 ### download proxmox and burn with rufus (use dd option, otherwise you will get errors)
-### note: Careful not to create a softraid on the physical raid.  when crating a raid; either you create it with the raid card (physical) or you create it with proxmox; otherwise if you loose a disk, you won't be able to replace it.
+### note: Careful not to create a softraid on the physical raid.  when creating a raid; either you create it with the raid card (physical) or you create it with proxmox; otherwise if you lose a disk, you won't be able to replace it.
 
 https://www.proxmox.com/en/downloads
 
@@ -20,18 +20,18 @@ https://www.proxmox.com/en/downloads
 
 ## 2- update, upgrades, etc
 
-    mv /etc/apt/sources.list.d/pve-enterprise.list /etc/apt/sources.list.d/pve-enterprise.list.bak
+    sed -i 's/^deb/#deb/' /etc/apt/sources.list.d/pve-enterprise.list
 
-    add these repo to /etc/apt/souces.list
+    add the no-subscription repo to its own file:
 
-    echo deb http://download.proxmox.com/debian/pve buster pve-no-subscription > /etc/apt/sources.list
+    echo "deb http://download.proxmox.com/debian/pve trixie pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
    
 
-    apt-get update && upgrade -yes
-    apt-get dist-upgrade -yes
+    apt-get update && apt-get upgrade -y
+    apt-get dist-upgrade -y
 
     apt-get autoclean 
-    apt-get autoremove -yes
+    apt-get autoremove -y
 
 ## 3- install some utilities:
 
@@ -57,6 +57,8 @@ https://www.proxmox.com/en/downloads
      [sshd]
      enabled = true
      port = 2299
+     filter = sshd
+     logpath = %(sshd_log)s
      EOF
      systemctl restart fail2ban
 
@@ -87,7 +89,7 @@ https://www.proxmox.com/en/downloads
 
     rsync -avh --progress /boot/grub /xxx/xxx/xxx
     
-## 9- GPU Passtrough
+## 9- GPU Passthrough
 
     nano /etc/default/grub
 
@@ -100,7 +102,6 @@ https://www.proxmox.com/en/downloads
     vfio
     vfio_iommu_type1
     vfio_pci
-    vfio_virqfd
 
     echo "options vfio_iommu_type1 allow_unsafe_interrupts=1" > /etc/modprobe.d/iommu_unsafe_interrupts.conf
     echo "options kvm ignore_msrs=1" > /etc/modprobe.d/kvm.conf
@@ -122,24 +123,24 @@ https://www.proxmox.com/en/downloads
 
     lspci -n -s 05:00
 
-    This command gives use the GPU vendors number
+    This command gives us the GPU vendor's number
 
     Use those numbers in this command (in my case:)
 
     echo "options vfio-pci ids=10de:06dd,10de:0be5 disable_vga=1"> /etc/modprobe.d/vfio.conf
 
-    update-initramfs -u
+    update-initramfs -u -k all
 
     reboot
 
     Create Vm with:
 
-    Bios is OMVF(UEFI)
+    Bios is OVMF(UEFI)
     Machine is q35
 
 ## 10- bonding nics
 
-    we need to create a bond0 and add all nics that we want to include than we add the bond to the linux bridge
+    we need to create a bond0 and add all nics that we want to include then we add the bond to the linux bridge
 
    ![bond](https://user-images.githubusercontent.com/3466110/149634851-4a673e3d-e8df-4940-9cf4-bc5090c3f219.png)
 
@@ -152,6 +153,7 @@ https://www.proxmox.com/en/downloads
     cd Linux 
     sudo alien MegaCli-8.07.14-1.noarch.rpm
     sudo dpkg -i megacli_8.07.14-2_all.deb
+    ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
     /opt/MegaRAID/MegaCli/MegaCli64 -h
 
  ## 12- test I/O speed with hdparm
@@ -215,9 +217,9 @@ megacli -AdpBbuCmd -aAll
 
 **write back:**
 
-megali -LDSetProp WB -LALL -aALL
+megacli -LDSetProp WB -LALL -aALL
 
-**read aahead:**
+**read ahead:**
 
 megacli -LDSetProp -RA -Immediate -LALL -aALL
 
@@ -269,13 +271,17 @@ apt install ansible
 
 ## Docker
 
-curl -s https://gist.githubusercontent.com/mtnezm/502cdb812caa25a32ddd994f6fbff0df/raw/e7ec8f706fc88623f0fb097b4d9704c4e0b4bd9a/install_docker_debian.bash | sudo bash
+    apt-get install -y ca-certificates curl
+    install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
+    apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 ## Portainer (docker manager)
 
 docker volume create portainer_data
 
-docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 
 ## nodered
 
